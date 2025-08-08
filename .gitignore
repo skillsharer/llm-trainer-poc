@@ -1,2 +1,8 @@
 # venv
 .venv
+
+# Data directory
+/data
+
+# Environment variables
+.env

@@ -17,6 +17,8 @@ uv sync
 
 6. Possible access requests needed additionally in hunggingface for local models.
 
+7. Add your `.pdf` and `.json` files to the `<repo_root>/data` directory. 
+
 ## Token count for various foundation models
 
 
