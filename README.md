@@ -23,6 +23,6 @@ uv sync
 
 
 ```bash
-export $(grep -v '^#' .src/.env | xargs)
+export $(grep -v '^#' ./src/.env | xargs)
 uv run ./src/counter.py
 ```
