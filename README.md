@@ -13,7 +13,9 @@ uv sync
 
 4. Obtain Google Gemini API key [here](https://aistudio.google.com/app/apikey).
 
-5. Possible access requests needed additionally in hunggingface for local models.
+5. Obtain Claude API key [here](https://console.anthropic.com/settings/keys)
+
+6. Possible access requests needed additionally in hunggingface for local models.
 
 ## Token count for various foundation models
 

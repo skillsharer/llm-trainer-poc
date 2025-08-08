@@ -3,6 +3,7 @@ import tiktoken
 import anthropic
 import google.generativeai as genai
 from transformers import AutoTokenizer
+from modules.data_loader import load_json, load_pdf
 
 class TokenCounter:
     """
@@ -13,7 +14,7 @@ class TokenCounter:
         print("Initializing tokenizers... ⏳")
         self.hf_tokenizers = {}
         hf_models = {
-            "llama": "meta-llama/Meta-Llama-3-8B",
+            "llama": "meta-llama/Llama-3.1-8B",
             "mistral": "mistralai/Mistral-7B-v0.1",
             "mixtral": "mistralai/Mixtral-8x7B-v0.1",
             "qwen": "Qwen/Qwen1.5-7B-Chat",
@@ -34,10 +35,10 @@ class TokenCounter:
             
         # --- Anthropic Tokenizer ---
         try:
-            self.anthropic_tokenizer = anthropic.get_tokenizer()
+            self.anthropic_client = anthropic.Anthropic()
         except Exception as e:
-            print(f"Warning: Could not load Anthropic tokenizer. Error: {e}")
-            self.anthropic_tokenizer = None
+            print(f"Warning: Could not load Anthropic client. Error: {e}")
+            self.anthropic_client = None
 
         # --- Google Gemini (API-based) ---
         # The official way to count Gemini tokens is via the API.
@@ -72,13 +73,20 @@ class TokenCounter:
         if model_family in ["openai", "gpt-4", "gpt-3.5-turbo"]:
             if self.openai_encoding:
                 return len(self.openai_encoding.encode(text))
-        elif model_family in ["gemini", "gemini-1.5-pro", "gemini-1.5-flash"]:
+        elif model_family in ["gemini", "gemini-1.5-pro", "gemini-1.5-flash", "gemini-2.5-pro", "gemini-2.5-flash"]:
             if self.gemini_model:
                 # This makes a lightweight API call for an accurate count.
                 return self.gemini_model.count_tokens(text).total_tokens
-        elif model_family in ["anthropic", "claude-3", "claude-2"]:
-            if self.anthropic_tokenizer:
-                return len(self.anthropic_tokenizer.encode(text).ids)
+        elif model_family in ["anthropic"]:
+            # https://medium.com/data-science/introducing-the-new-anthropic-token-counting-api-5afd58bad5ff
+            if self.anthropic_client and "ANTHROPIC_API_KEY" in os.environ:
+                # Use the new beta token counting API
+                response = self.anthropic_client.beta.messages.count_tokens(
+                    betas=["token-counting-2024-11-01"],
+                    model="claude-3-5-sonnet-20241022",
+                    messages=[{"role": "user", "content": text}]
+                )
+                return response.input_tokens
         elif model_family in self.hf_tokenizers:
             tokenizer = self.hf_tokenizers[model_family]
             return len(tokenizer.encode(text))
@@ -86,14 +94,18 @@ class TokenCounter:
         return -1
 
 def main():
-    input_text = """
-In a distant future, humanity has spread across the stars, forging civilizations light-years apart. 
-Artificial intelligence governs the systems that keep humans alive in harsh environments, but something ancient is awakening in the void...
-"""
-    # 1. Initialize the counter once
+    data_dir = os.environ["DATA_DIR"]
+    input_text = ""
+    for file_name in os.listdir(data_dir):
+        file_path = os.path.join(data_dir, file_name)
+        if file_name.endswith(".pdf"):
+            input_text += load_pdf(file_path)
+        elif file_name.endswith(".json"):
+            input_text += load_json(file_path)
+        else:
+            continue
     counter = TokenCounter()
 
-    # 2. Define models to test
     models_to_test = [
         "openai", 
         "gemini", 
