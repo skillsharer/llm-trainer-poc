@@ -1,0 +1,13 @@
+[project]
+name = "llm-trainer-poc"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "anthropic>=0.62.0",
+    "google-generativeai>=0.8.5",
+    "pdfplumber>=0.11.7",
+    "tiktoken>=0.10.0",
+    "transformers>=4.55.0",
+]
