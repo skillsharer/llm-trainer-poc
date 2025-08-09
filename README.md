@@ -13,11 +13,15 @@ uv sync
 
 4. Obtain Google Gemini API key [here](https://aistudio.google.com/app/apikey).
 
-5. Obtain Claude API key [here](https://console.anthropic.com/settings/keys)
+5. Obtain Claude API key [here](https://console.anthropic.com/settings/keys).
 
-6. Possible access requests needed additionally in hunggingface for local models.
+6. Obtain OpenAI API key [here](https://platform.openai.com/api-keys).
 
-7. Add your `.pdf` and `.json` files to the `<repo_root>/data` directory. 
+7. Add the created API keys to the `.env`
+
+8. Possible access requests needed additionally in hunggingface for local models.
+
+9. Add your `.pdf` and `.json` files to the `<repo_root>/data` directory. 
 
 ## Token count for various foundation models
 
@@ -25,4 +29,11 @@ uv sync
 ```bash
 export $(grep -v '^#' ./src/.env | xargs)
 uv run ./src/counter.py
+```
+
+## Inference for various foundation models
+
+```bash
+export $(grep -v '^#' ./src/.env | xargs)
+uv run ./src/inference.py
 ```
