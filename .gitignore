@@ -14,3 +14,17 @@ __pycache__/
 
 # Artifacts directory
 **/artifacts
+
+# Eval directory - Node.js dependencies
+eval/node_modules/
+eval/.npm
+eval/.node_repl_history
+eval/npm-debug.log*
+eval/yarn-debug.log*
+eval/yarn-error.log*
+
+# PromptFoo results
+eval/results/
+eval/data/
+# PromptFoo evaluation result folders (moved to results/)
+eval/eval-*/

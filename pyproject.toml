@@ -12,4 +12,8 @@ dependencies = [
     "tiktoken>=0.10.0",
     "torch>=2.0.0",
     "transformers>=4.55.0",
+    "pyyaml>=6.0.0",
+    "pandas>=2.0.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
 ]

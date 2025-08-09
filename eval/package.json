@@ -1,0 +1,30 @@
+{
+  "name": "llm-trainer-poc-eval",
+  "version": "1.0.0",
+  "description": "PromptFoo evaluation for LLM Trainer POC",
+  "main": "promptfoo_evaluator.py",
+  "scripts": {
+    "eval": "npx promptfoo eval -c promptfooconfig.yaml",
+    "view": "npx promptfoo view results/",
+    "setup": "cd .. && uv run eval/setup.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skillsharer/llm-trainer-poc.git"
+  },
+  "keywords": [
+    "promptfoo",
+    "llm",
+    "evaluation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/skillsharer/llm-trainer-poc/issues"
+  },
+  "homepage": "https://github.com/skillsharer/llm-trainer-poc#readme",
+  "dependencies": {
+    "promptfoo": "^0.117.5"
+  }
+}
