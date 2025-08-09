@@ -267,7 +267,8 @@ def main():
     if not os.path.exists(data_dir):
         print(f"❌ Data directory not found: {data_dir}")
         return
-    
+    if not os.path.exists(artifacsts_dir):
+        os.makedirs(artifacsts_dir)
     input_text = ""
     for file_name in os.listdir(data_dir):
         file_path = os.path.join(data_dir, file_name)
