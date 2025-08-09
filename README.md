@@ -17,7 +17,7 @@ uv sync
 
 6. Obtain OpenAI API key [here](https://platform.openai.com/api-keys).
 
-7. Add the created API keys to the `.env`
+7. Use `./setup-env.sh` in the `src` directory then add the created API keys to the `.env`
 
 8. Possible access requests needed additionally in hunggingface for local models.
 
