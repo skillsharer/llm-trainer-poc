@@ -1,0 +1,28 @@
+description: LLM Trainer POC - General Response Quality Evaluation
+prompts:
+  - 'Evaluate this response: {{response_to_evaluate}}'
+providers:
+  - openai:gpt-3.5-turbo  # Real LLM for evaluation
+tests: data/model_outputs.json
+defaultTest:
+  assert:
+    - type: contains
+      value: "."
+      description: Response should contain at least one sentence
+    - type: not-contains
+      value: "error"
+      description: Should not contain error indicators
+    - type: llm-rubric
+      value: |
+        Evaluate the response on the following criteria and provide detailed reasoning:
+        
+        1. Clarity (1-5): Is the response clear and easy to understand?
+        2. Completeness (1-5): Does it adequately address the topic?
+        3. Accuracy (1-5): Is the information factual and correct?
+        4. Coherence (1-5): Is the response well-structured and logical?
+        
+        Overall grade: Pass if average score >= 3.0, Fail otherwise.
+        
+        Provide specific reasoning for each criterion and the final decision.
+      description: LLM-powered quality evaluation with detailed reasoning
+outputPath: ./results/eval_results.json
