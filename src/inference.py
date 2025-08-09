@@ -284,7 +284,7 @@ def main():
         return
     
     # Truncate input text if too long (to manage costs and processing time)
-    max_input_length = os.environ.get("INPUT_TOKEN_LIMIT", 4000)
+    max_input_length = int(os.environ.get("INPUT_TOKEN_LIMIT", "4000"))
     if len(input_text) > max_input_length:
         input_text = input_text[:max_input_length] + "\n[... truncated ...]"
         print(f"⚠️  Input text truncated to {max_input_length} characters")
