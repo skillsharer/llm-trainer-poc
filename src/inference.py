@@ -263,12 +263,12 @@ def save_results_to_json(results: list, output_file: str):
 def main():
     # Load input text the same way as counter.py
     data_dir = os.environ.get("DATA_DIR", "data")
-    artifacsts_dir = os.environ.get("ARTIFACTS_DIR", "artifacts")
+    artifacts_dir = os.environ.get("ARTIFACTS_DIR", "artifacts")
     if not os.path.exists(data_dir):
         print(f"❌ Data directory not found: {data_dir}")
         return
-    if not os.path.exists(artifacsts_dir):
-        os.makedirs(artifacsts_dir)
+    if not os.path.exists(artifacts_dir):
+        os.makedirs(artifacts_dir)
     input_text = ""
     for file_name in os.listdir(data_dir):
         file_path = os.path.join(data_dir, file_name)
@@ -341,7 +341,7 @@ def main():
             print(f"❌ {model.capitalize():<12} | Unexpected error: {e}")
     
     # Save results to JSON file
-    output_file = os.path.join(artifacsts_dir, f"inference_results_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
+    output_file = os.path.join(artifacts_dir, f"inference_results_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
     save_results_to_json(results, output_file)
     
     print("\n" + "="*60)
