@@ -28,3 +28,5 @@ eval/results/
 eval/data/
 # PromptFoo evaluation result folders (moved to results/)
 eval/eval-*/
+
+**results

@@ -37,3 +37,7 @@ uv run ./src/counter.py
 export $(grep -v '^#' ./src/.env | xargs)
 uv run ./src/inference.py
 ```
+
+## Inference Evaluation with Promptfoo
+
+See README [here](./eval/README.md).
