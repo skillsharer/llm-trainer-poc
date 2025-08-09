@@ -168,7 +168,7 @@ class PromptFooEvaluator:
         input_groups = {}
         for test_case in test_cases:
             input_data = test_case["vars"]["scenario_data"]
-            input_hash = hash(input_data)
+            input_hash = hashlib.sha256(input_data.encode('utf-8')).hexdigest()
             
             if input_hash not in input_groups:
                 input_groups[input_hash] = {
