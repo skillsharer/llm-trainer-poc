@@ -10,7 +10,7 @@ cd "$(dirname "$0")"
 # Check if promptfoo is installed
 if ! npx promptfoo --version &> /dev/null; then
     echo "❌ PromptFoo not found. Installing..."
-    npm install promptfoo
+    npm install promptfoo@0.117.5
 fi
 
 echo ""
